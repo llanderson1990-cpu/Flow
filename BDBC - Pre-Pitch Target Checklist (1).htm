@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<!-- saved from url=(0115)file:///Users/LaurenLee/Downloads/wetransfer_flows_2026-01-28_0115/BDBC%20-%20Pre%20Pitch%20Target%20Checklist.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDBC - Pre-Pitch Target Checklist</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #000080;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #fff;
+            margin: 0;
+            font-family: 'Archivo Black', sans-serif;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            color: #fff;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .step-section {
+            margin-bottom: 20px;
+            border: 3px solid #000080;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .step-header {
+            background: #000080;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Archivo Black', sans-serif;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .step-header:hover {
+            background: #0000a0;
+        }
+        
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+        
+        .step-content.show {
+            max-height: 2000px;
+            padding: 20px;
+        }
+        
+        .condition-box {
+            background: #000080;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .then-label {
+            font-weight: 700;
+            font-size: 14px;
+            color: #000080;
+            margin: 15px 0 10px 0;
+        }
+        
+        .action-box {
+            background: #f8f9fa;
+            border: 2px solid #000080;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .action-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            border: 2px solid #28a745;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        
+        .example-label {
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .example-text {
+            font-size: 13px;
+            color: #1b5e20;
+            font-style: italic;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .expand-all-btn {
+            background: #000080;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .expand-all-btn:hover {
+            background: #0000a0;
+        }
+        
+        .flow-arrow {
+            text-align: center;
+            font-size: 24px;
+            color: #000080;
+            margin: 10px 0;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .expand-all-btn {
+                display: none;
+            }
+            
+            .step-content {
+                max-height: none !important;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 BDBC - Pre-Pitch Target Checklist</h1>
+            <div class="subtitle">Click each step to expand/collapse | Follow the decision tree to determine next actions</div>
+        </div>
+        
+        <button class="expand-all-btn" onclick="expandAllSteps()">Expand All Steps</button>
+        
+        <!-- STEP 1 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step1&#39;)">
+                STEP 1: Has the Editor Already Written About This Product?
+                <span class="toggle-icon rotated" id="icon-step1">▼</span>
+            </div>
+            <div class="step-content show" id="step1">
+                <div class="condition-box">
+                    IF AN EDITOR ALREADY HAS WRITTEN ABOUT THE PRODUCT BEING PITCHED
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        Remove them from your target list
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 2 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step2&#39;)">
+                STEP 2: Has the Editor Received a Sample But Not Written About It?
+                <span class="toggle-icon rotated" id="icon-step2">▼</span>
+            </div>
+            <div class="step-content show" id="step2">
+                <div class="condition-box">
+                    IF AN EDITOR ALREADY RECEIVED A SAMPLE OF THE PRODUCT BEING PITCHED, BUT HASN'T WRITTEN ABOUT IT
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        Draft a custom email for them
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-label">EXAMPLE EMAIL OPENING:</div>
+                    <div class="example-text">
+                        "Sharing more details about the [SAMPLE] you received..."
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 3 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step3&#39;)">
+                STEP 3: Active Email Chain About Another Client/Product?
+                <span class="toggle-icon rotated" id="icon-step3">▼</span>
+            </div>
+            <div class="step-content show" id="step3">
+                <div class="condition-box">
+                    IF YOU HAVE AN ACTIVE EMAIL CHAIN WITH AN EDITOR ABOUT ANOTHER CLIENT, OR A DIFFERENT PRODUCT FROM THE CLIENT YOU'RE ABOUT TO PITCH
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        Draft a custom email for them
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-label">EXAMPLE EMAIL OPENING:</div>
+                    <div class="example-text">
+                        "Starting a second thread to share..."
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 4 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step4&#39;)">
+                STEP 4: Are You Pitching a Sale or Discount/Promotion?
+                <span class="toggle-icon rotated" id="icon-step4">▼</span>
+            </div>
+            <div class="step-content show" id="step4">
+                <div class="condition-box">
+                    ARE YOU PITCHING A SALE OR SOME OTHER VARIETY OF DISCOUNT / PROMOTION?
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        <strong>↳ Remove all of the editors without a BF check from your target list</strong>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 6px;">
+                    <div style="font-weight: 700; color: #856404; margin-bottom: 5px; font-size: 13px;">💡 NOTE:</div>
+                    <div style="font-size: 13px; color: #856404;">
+                        BF = Black Friday check. Only editors with this designation should receive sale/discount pitches.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 5 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step5&#39;)">
+                STEP 5: Is This Product Not a Fit for Every Editor?
+                <span class="toggle-icon rotated" id="icon-step5">▼</span>
+            </div>
+            <div class="step-content show" id="step5">
+                <div class="condition-box">
+                    IF YOU ARE PITCHING SOMETHING THAT ISN'T A FIT FOR EVERY EDITOR, THAT WAS CHECKED FOR A CLIENT
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        Remove the editors from your list who don't write about the kind of product that's being pitched
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-label">EXAMPLE:</div>
+                    <div class="example-text">
+                        If you are pitching a bag brand that normally gets pitched to mens, womens, family, and home editors, but they've made a diaper bag specifically for women, this would be a situation where you'd remove the editors that do not align with diaper bag coverage (in this case, mens editors would be removed).
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 7 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step7&#39;)">
+                STEP 7: Product Fits Some Editors But Not All?
+                <span class="toggle-icon" id="icon-step7">▼</span>
+            </div>
+            <div class="step-content" id="step7">
+                <div class="condition-box">
+                    IF YOU PITCHING SOMETHING THAT MIGHT BE A FIT FOR EDITORS THAT AREN'T CHECKED FOR THE CLIENT
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        <strong>↳ Add editors from the appropriate tab</strong>
+                    </div>
+                </div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        <strong>↳ Draft a separate email for them that assumes they aren't already familiar with the client</strong>
+                    </div>
+                </div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        <strong>↳ Rather than our standard "Sharing the latest release from [CLIENT]..." verbiage, change to include the client shorthand (i.e., this email will provide a quick intro line to these newly added editors)</strong>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-label">EXAMPLES OF CLIENT SHORTHAND:</div>
+                    <div class="example-text">
+                        • The NY-based menswear brand<br>
+                        • The premium golf and lifestyle brand<br>
+                        • Everyone's favorite French lingerie brand
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-label">EXAMPLE SCENARIO:</div>
+                    <div class="example-text">
+                        Etam, everyone's favorite French lingerie brand, has recently launched a French-lingerie inspired home goods collection. Since this is a departure from their typical product category, you would add home editors who aren't already checked for Etam and provide them with the client shorthand intro.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flow-arrow">↓</div>
+        
+        <!-- STEP 8 -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep(&#39;step8&#39;)">
+                STEP 8: Did You Check the Notes Section?
+                <span class="toggle-icon" id="icon-step8">▼</span>
+            </div>
+            <div class="step-content" id="step8">
+                <div class="condition-box">
+                    IF YOU CHECKED THE NOTES SECTION
+                </div>
+                
+                <div class="then-label">THEN:</div>
+                
+                <div class="action-box">
+                    <div class="action-text">
+                        Remove editors as dictated
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border: 2px solid #ffc107; border-radius: 6px;">
+                    <div style="font-weight: 700; color: #856404; margin-bottom: 8px;">💡 PRO TIP:</div>
+                    <div style="font-size: 13px; color: #856404;">
+                        The Notes section contains important editor-specific information that may affect whether they should be included in this pitch. Always check before finalizing your target list!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #000080; color: white; border-radius: 8px; text-align: center;">
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">✅ Checklist Complete!</div>
+            <div style="font-size: 14px; opacity: 0.9;">Your target list is now refined and ready for pitching</div>
+        </div>
+    </div>
+    
+    <script>
+        let allStepsExpanded = false;
+        
+        function toggleStep(stepId) {
+            const step = document.getElementById(stepId);
+            const icon = document.getElementById('icon-' + stepId);
+            
+            if (step.classList.contains('show')) {
+                step.classList.remove('show');
+                icon.classList.remove('rotated');
+            } else {
+                step.classList.add('show');
+                icon.classList.add('rotated');
+            }
+        }
+        
+        function expandAllSteps() {
+            const steps = document.querySelectorAll('.step-content');
+            const icons = document.querySelectorAll('.toggle-icon');
+            const btn = document.querySelector('.expand-all-btn');
+            
+            if (!allStepsExpanded) {
+                steps.forEach(step => step.classList.add('show'));
+                icons.forEach(icon => icon.classList.add('rotated'));
+                btn.textContent = 'Collapse All Steps';
+                allStepsExpanded = true;
+            } else {
+                steps.forEach(step => step.classList.remove('show'));
+                icons.forEach(icon => icon.classList.remove('rotated'));
+                btn.textContent = 'Expand All Steps';
+                allStepsExpanded = false;
+            }
+        }
+    </script>
+
+
+</body></html>

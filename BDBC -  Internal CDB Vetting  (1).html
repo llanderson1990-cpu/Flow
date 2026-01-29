@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDBC - Internal - CDB Vetting</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #000080;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #fff;
+            margin: 0;
+            font-family: 'Archivo Black', sans-serif;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            color: #fff;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .note-box {
+            background: #ffd700;
+            border: 3px solid #000;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .note-title {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .note-text {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .step-section {
+            margin-bottom: 20px;
+            border: 3px solid #000080;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .step-header {
+            background: #000080;
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .step-header:hover {
+            background: #0000a0;
+        }
+        
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+        
+        .step-content.show {
+            max-height: 3000px;
+            padding: 30px;
+        }
+        
+        .question-box {
+            background: #000080;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .decision-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        .decision-box {
+            border: 3px solid;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .decision-yes {
+            border-color: #28a745;
+        }
+        
+        .decision-no {
+            border-color: #dc3545;
+        }
+        
+        .decision-header {
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .header-yes {
+            background: #28a745;
+        }
+        
+        .header-no {
+            background: #dc3545;
+        }
+        
+        .decision-content {
+            padding: 20px;
+            background: white;
+        }
+        
+        .action-text {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #000080;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .info-title {
+            font-weight: 700;
+            color: #000080;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .info-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .example-text {
+            font-size: 13px;
+            color: #1b5e20;
+            font-style: italic;
+            line-height: 1.6;
+        }
+        
+        .process-list {
+            margin: 15px 0;
+        }
+        
+        .process-item {
+            background: #f0f0f0;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #000080;
+            font-size: 14px;
+        }
+        
+        .sub-item {
+            margin-left: 20px;
+            margin-top: 8px;
+            padding-left: 15px;
+            border-left: 2px solid #666;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .column-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .column-label {
+            background: #000080;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        
+        .final-steps-box {
+            background: #000080;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .final-steps-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .final-step-item {
+            font-size: 14px;
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .final-step-item:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .expand-all-btn {
+            background: #000080;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .expand-all-btn:hover {
+            background: #0000a0;
+        }
+        
+        .arrow-down {
+            text-align: center;
+            font-size: 32px;
+            color: #000080;
+            margin: 20px 0;
+        }
+        
+        .link-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .link-text {
+            font-size: 14px;
+            color: #1565c0;
+            font-weight: 600;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .expand-all-btn {
+                display: none;
+            }
+            
+            .step-content {
+                max-height: none !important;
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 1000px) {
+            .decision-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .column-labels {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 BDBC - Internal - CDB Vetting</h1>
+            <div class="subtitle">Complete workflow for vetting and adding new editors to the Contact Database</div>
+        </div>
+        
+        <button class="expand-all-btn" onclick="expandAllSteps()">Expand All Steps</button>
+        
+        <!-- NOTE BOX -->
+        <div class="note-box">
+            <div class="note-title">*NOTE*</div>
+            <div class="note-text">
+                <strong>When performing client coverage searches for the PR Recap, every editor must be double checked to see if they are already in our database.</strong><br><br>
+                
+                If not, we vet them to ensure they are a fit for our clients and add them to the New Editors tab in our CDB.<br><br>
+                
+                If they are, we add them to ensure they are a fit for our clients and add them to the New Editors tab in our CDB.
+            </div>
+        </div>
+        
+        <!-- STEP 1: WHO TO ADD -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('step1')">
+                WHO TO ADD?
+                <span class="toggle-icon" id="icon-step1">▼</span>
+            </div>
+            <div class="step-content" id="step1">
+                <div class="info-box" style="background: #e8f5e9; border-color: #28a745;">
+                    <div class="info-title" style="color: #28a745;">MUST BE A COMMERCE EDITOR</div>
+                    <div class="info-text">
+                        <strong>Buy links must be in their articles</strong>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">EXAMPLE:</div>
+                    <div class="example-text">
+                        17 Best Jeans for Men 2026, As Worn By Our Editors Daily | GQ
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Usually found through:</div>
+                    <div class="info-text">
+                        <strong>• Client coverage search</strong> (Press Hits tab in all PR Recaps)<br>
+                        <strong>• Other discovery searches:</strong> Evergreen searches, Past coverage when we onboard a client, etc.
+                    </div>
+                </div>
+                
+                <div class="link-box">
+                    <div class="link-text">
+                        Check here: <strong><a href="https://docs.google.com/spreadsheets/d/1OY6gwsS7L5-Fks-Xh4d0ZXDXUCzC6uQy1C1ftB9kaqA/edit?gid=2082618478#gid=2082618478" target="_blank" style="color: #0066cc; text-decoration: underline;">BDBC - Internal - Contact Database</a></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- STEP 2: DATABASE CHECK -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('step2')">
+                STEP 1: Is writer already in the Internal Database?
+                <span class="toggle-icon" id="icon-step2">▼</span>
+            </div>
+            <div class="step-content" id="step2">
+                <div class="question-box">
+                    Is writer already in the Internal Database?<br>
+                    Check here: <a href="https://docs.google.com/spreadsheets/d/1OY6gwsS7L5-Fks-Xh4d0ZXDXUCzC6uQy1C1ftB9kaqA/edit?gid=2082618478#gid=2082618478" target="_blank" style="color: #0066cc; text-decoration: underline;">BDBC - Internal - Contact Database</a>
+                </div>
+                
+                <div class="decision-container">
+                    <div class="decision-box decision-yes">
+                        <div class="decision-header header-yes">
+                            YES
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">STOP</div>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-box decision-no">
+                        <div class="decision-header header-no">
+                            NO
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">Continue to Step 2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- STEP 3: POTENTIAL NEW EDITOR -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('step3')">
+                STEP 2: Vet as potential new editor
+                <span class="toggle-icon" id="icon-step3">▼</span>
+            </div>
+            <div class="step-content" id="step3">
+                <div class="info-box" style="background: #fff3cd; border-color: #ffc107;">
+                    <div class="info-title" style="color: #856404;">Add the writer to the <a href="https://docs.google.com/spreadsheets/d/1OY6gwsS7L5-Fks-Xh4d0ZXDXUCzC6uQy1C1ftB9kaqA/edit?gid=1143453231#gid=1143453231" target="_blank" style="color: #0066cc; text-decoration: underline;">CDB New Editors Tab</a></div>
+                </div>
+                
+                <div class="question-box">
+                    Are they a commerce editor?<br>
+                    (articles MUST include buy links)<br>
+                    and cover relevant topics for our clients.
+                </div>
+                
+                <div class="decision-container">
+                    <div class="decision-box decision-no">
+                        <div class="decision-header header-no">
+                            NO
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">STOP</div>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-box decision-yes">
+                        <div class="decision-header header-yes">
+                            YES
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">Continue to vetting process</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- STEP 4: HOW TO VET -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('step4')">
+                HOW TO VET? - Complete Verification Process
+                <span class="toggle-icon" id="icon-step4">▼</span>
+            </div>
+            <div class="step-content" id="step4">
+                <div class="info-box" style="background: #e3f2fd; border-color: #2196f3;">
+                    <div class="info-title" style="color: #1565c0;">REQUIREMENTS:</div>
+                    <div class="info-text">
+                        They must be:<br>
+                        ✓ <strong>Actively writing</strong><br>
+                        ✓ <strong>Write about relevant topics</strong> to our clients
+                    </div>
+                </div>
+                
+                <div style="background: #f0f0f0; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <div style="font-size: 18px; font-weight: 700; color: #000080; margin-bottom: 20px;">
+                        VERIFICATION CHECKLIST:
+                    </div>
+                    
+                    <div class="process-item">
+                        <strong>1. Check Instagram bio</strong>
+                        <div class="sub-item">Some usually have their titles in their bio</div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <strong>2. Check LinkedIn</strong>
+                        <div class="sub-item">Both "Experience" section and "Contact Info" if relevant</div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <strong>3. Check Muck Rack</strong>
+                        <div class="sub-item">Use as a guide and then check the actual pub</div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <strong>4. Review their bylines for latest articles at their current publication(s)</strong>
+                        <div class="sub-item">Confirm they are not an <strong>automatic update</strong> before adding using the checks above, ensuring the article is not just getting updated from being previously published</div>
+                    </div>
+                </div>
+                
+                <div class="question-box">
+                    Review with Brad and Lauren for Approval to proceed
+                </div>
+                
+                <div class="question-box" style="margin-top: 15px;">
+                    Was the writer Approved?
+                </div>
+                
+                <div class="decision-container">
+                    <div class="decision-box decision-no">
+                        <div class="decision-header header-no">
+                            NO
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">STOP<br><br>Do not add to database</div>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-box decision-yes">
+                        <div class="decision-header header-yes">
+                            YES
+                        </div>
+                        <div class="decision-content">
+                            <div class="action-text">APPROVED!<br><br>Continue to final steps</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- STEP 5: ONCE APPROVED -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('step5')">
+                Once Approved on the New Tab - Final Steps
+                <span class="toggle-icon" id="icon-step5">▼</span>
+            </div>
+            <div class="step-content" id="step5">
+                <div class="final-steps-box">
+                    <div class="final-steps-title">📋 FINAL STEPS:</div>
+                    <div class="final-step-item">Add to relevant CDB tab</div>
+                    <div class="final-step-item">Check relevant clients boxes</div>
+                    <div class="final-step-item">Including GG, SL, and BF</div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <div style="font-size: 16px; font-weight: 700; color: #000080; margin-bottom: 15px;">
+                        COLUMN LABELS TO UPDATE:
+                    </div>
+                    
+                    <div class="column-labels">
+                        <div class="column-label">GG<br>Gift Guides</div>
+                        <div class="column-label">SL<br>Shopping Lists</div>
+                        <div class="column-label">BC<br>Black Friday</div>
+                        <div class="column-label">EL<br>Email Lists</div>
+                    </div>
+                </div>
+                
+                <div class="link-box">
+                    <div class="link-text">
+                        Review Best Bylines for latest articles at their current publication(s)<br>
+                        Confirm they are not an automatic update before adding using the checks above
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #28a745; color: white; border-radius: 8px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">✅ Editor Successfully Added!</div>
+            <div style="font-size: 14px; opacity: 0.9;">New editor has been vetted and added to the Contact Database</div>
+        </div>
+    </div>
+    
+    <script>
+        let allStepsExpanded = false;
+        
+        function toggleStep(stepId) {
+            const step = document.getElementById(stepId);
+            const icon = document.getElementById('icon-' + stepId);
+            
+            if (step.classList.contains('show')) {
+                step.classList.remove('show');
+                icon.classList.remove('rotated');
+            } else {
+                step.classList.add('show');
+                icon.classList.add('rotated');
+            }
+        }
+        
+        function expandAllSteps() {
+            const steps = document.querySelectorAll('.step-content');
+            const icons = document.querySelectorAll('.toggle-icon');
+            const btn = document.querySelector('.expand-all-btn');
+            
+            if (!allStepsExpanded) {
+                steps.forEach(step => step.classList.add('show'));
+                icons.forEach(icon => icon.classList.add('rotated'));
+                btn.textContent = 'Collapse All Steps';
+                allStepsExpanded = true;
+            } else {
+                steps.forEach(step => step.classList.remove('show'));
+                icons.forEach(icon => icon.classList.remove('rotated'));
+                btn.textContent = 'Expand All Steps';
+                allStepsExpanded = false;
+            }
+        }
+    </script>
+</body>
+</html>

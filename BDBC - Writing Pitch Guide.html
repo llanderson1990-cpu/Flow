@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing a Pitch - Interactive Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #000080;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #fff;
+            margin: 0;
+            font-family: 'Archivo Black', sans-serif;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            color: #fff;
+            margin-top: 8px;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+            border: 2px solid #000080;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #000080;
+            color: white;
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Archivo Black', sans-serif;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .section-header:hover {
+            background: #0000a0;
+        }
+        
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+        
+        .section-content.show {
+            max-height: 10000px;
+            padding: 20px;
+        }
+        
+        .subsection {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #000080;
+        }
+        
+        .subsection-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #000080;
+            margin-bottom: 10px;
+        }
+        
+        .rule-box {
+            background: white;
+            border: 2px solid #000080;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .rule-question {
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .rule-answer {
+            color: #333;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        
+        .example-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .example-btn:hover {
+            background: #218838;
+        }
+        
+        .example-btn.active {
+            background: #dc3545;
+        }
+        
+        .example-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 0;
+        }
+        
+        .example-content.show {
+            max-height: 3000px;
+            margin-top: 10px;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 4px;
+            border: 2px solid #28a745;
+        }
+        
+        .example-text {
+            font-size: 12px;
+            color: #1b5e20;
+            font-style: italic;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .example-text a {
+            color: #0066cc;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        .example-text a:hover {
+            color: #0052a3;
+        }
+        
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .scenario-box {
+            background: white;
+            border: 3px solid #000080;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .scenario-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #000080;
+            margin-bottom: 12px;
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .step-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border-left: 3px solid #000080;
+        }
+        
+        .step-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        
+        .note-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+            font-size: 12px;
+        }
+        
+        .note-box strong {
+            color: #856404;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .expand-all-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .expand-all-btn:hover {
+            background: #5a6268;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .example-btn, .expand-all-btn {
+                display: none;
+            }
+            
+            .section-content {
+                max-height: none !important;
+                padding: 20px;
+            }
+            
+            .example-content {
+                max-height: none !important;
+                margin-top: 10px;
+            }
+            
+            .example-box {
+                display: block !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 BDBC - Writing a Pitch</h1>
+            <div class="subtitle">Interactive Guide - Click sections and examples to expand/collapse</div>
+        </div>
+        
+        <button class="expand-all-btn" onclick="expandAllSections()">Expand All Sections</button>
+        
+        <!-- SECTION 1: SALUTATION -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section1')">
+                1. SALUTATION
+                <span class="toggle-icon" id="icon-section1">▼</span>
+            </div>
+            <div class="section-content" id="section1">
+                <div class="subsection">
+                    <div class="subsection-title">Format:</div>
+                    <p><strong>Hi / Hey / Howdy / etc {{First name}},</strong></p>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Choose based on day of week:</div>
+                    <div class="grid-3">
+                        <div class="rule-box">
+                            <div class="rule-question">Is it a Monday</div>
+                            <div class="rule-answer">I hope you had a great weekend / I hope your week is off to a great start / etc.</div>
+                        </div>
+                        <div class="rule-box">
+                            <div class="rule-question">Is it the middle of the week</div>
+                            <div class="rule-answer">I hope this finds you well / I hope you're well! / I hope your [DAY] is going well. / etc.</div>
+                        </div>
+                        <div class="rule-box">
+                            <div class="rule-question">Is it a Friday</div>
+                            <div class="rule-answer">Happy Friday!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 2: OPENING SENTENCE -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section2')">
+                2. OPENING SENTENCE
+                <span class="toggle-icon" id="icon-section2">▼</span>
+            </div>
+            <div class="section-content" id="section2">
+                <div class="subsection">
+                    <div class="subsection-title">Your opening sentence should do TWO things:</div>
+                    <ol style="margin-left: 20px; font-size: 14px;">
+                        <li>Tell the editor what the email is about - who the brand is and what the product is</li>
+                        <li>Tell the editor why they should care - why the product is worth writing about</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">⚙️ FORMATTING RULES:</div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Have you pitched the editor this client MORE than six times?</div>
+                        <div class="rule-answer">✓ Use the brand name without brand descriptor (because you can assume, at this point, they know who the brand is)</div>
+                        <button class="example-btn" onclick="toggleExample('ex1', this)">📄 Show Example</button>
+                        <div class="example-content" id="ex1">
+                            <div class="example-box">
+                                <div class="example-text"><a href="https://www.buckmason.com/collections/womens-new-arrivals?fabric=silk%2Fcashmere" target="_blank">Buck Mason</a> just added new styles and colors to its <a href="https://www.buckmason.com/collections/womens-new-arrivals?fabric=silk%2Fcashmere" target="_blank">Featherweight Silk Cashmere Collection</a>…</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Have you pitched the editor this client LESS than six times?</div>
+                        <div class="rule-answer">✓ Add brand descriptor</div>
+                        <button class="example-btn" onclick="toggleExample('ex2', this)">📄 Show Example</button>
+                        <div class="example-content" id="ex2">
+                            <div class="example-box">
+                                <div class="example-text">The Los Angeles-based essentials brand, <a href="https://www.buckmason.com/" target="_blank">Buck Mason</a>, has just added new styles and colors to its <a href="https://www.buckmason.com/collections/womens-new-arrivals?fabric=silk%2Fcashmere" target="_blank">Featherweight Silk Cashmere Collection</a>...</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Are you pitching a collection that has a name?</div>
+                        <div class="rule-answer">✓ Provide a single sentence description of the collection (collection names are essentially a meaningless combination of words, so the editors need more info)</div>
+                        <button class="example-btn" onclick="toggleExample('ex3', this)">📄 Show Example</button>
+                        <div class="example-content" id="ex3">
+                            <div class="example-box">
+                                <div class="example-text">The Los Angeles-based essentials brand, <a href="https://www.buckmason.com/" target="_blank">Buck Mason</a> just added new styles to its <a href="https://www.buckmason.com/collections/womens-new-arrivals?fabric=silk%2Fcashmere" target="_blank">Featherweight Silk Cashmere Collection</a>, a range of ribbed tops made from a sumptuous merino / silk / cashmere blend.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Are you pitching more than three products together, but they aren't technically a collection with a name?</div>
+                        <div class="rule-answer">✓ Use your opening sentence to explain why the products are being grouped together, as well as tell the editor why they should care</div>
+                        <button class="example-btn" onclick="toggleExample('ex4', this)">📄 Show Example</button>
+                        <div class="example-content" id="ex4">
+                            <div class="example-box">
+                                <div class="example-text"><a href="https://reigningchamp.com/collections/mens-jackets?sort_by=manual&filter.p.m.custom.fabric_group=Matte+Ripstop&filter.v.availability=1" target="_blank">Reigning Champ</a> has expanded its collection RDS-certified down outerwear with new styles and colors.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Are you pitching just one or two products?</div>
+                        <div class="rule-answer">✓ Simple introduction format</div>
+                        <button class="example-btn" onclick="toggleExample('ex5', this)">📄 Show Examples</button>
+                        <div class="example-content" id="ex5">
+                            <div class="example-box">
+                                <div class="example-text">Sharing the brand new <a href="https://cleverpup.com/collections/frontpage" target="_blank">Transit Tote from Cleverpup</a> - a feature-rich dog carrier that also doubles as an everyday bag.
+
+Sharing a closer look at <a href="https://www.kestin.co/products/dunbar-padded-jacket-in-dark-navy-recycled-nylon" target="_blank">KESTIN's Dunbar Padded Jacket</a> and <a href="https://www.kestin.co/products/pathhead-puffer-vest-in-dark-olive-recycled-nylon" target="_blank">Pathhead Puffer Vest</a>, two vintage-inspired outerwear styles that are as sustainable as they are warm.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-box">
+                        <div class="rule-question">Are the products net new? / Are the products old but back-in-stock or available in new colors?</div>
+                        <div class="rule-answer">If products are old but back-in-stock or available in new colors, <strong>mention that detail</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: BRIDGE TO PITCH -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section3')">
+                3. BRIDGE TO PITCH (Always the Same)
+                <span class="toggle-icon" id="icon-section3">▼</span>
+            </div>
+            <div class="section-content" id="section3">
+                <div class="subsection">
+                    <p style="font-style: italic; color: #333; font-size: 14px;">
+                        More info can be found below.<br><br>
+                        Hi-res imagery can be found here: [LINK]<br><br>
+                        And details about BRAND's affiliate program can be found here: [LINK]
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 4: SAMPLE CALL OUT -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section4')">
+                4. SAMPLE CALL OUT
+                <span class="toggle-icon" id="icon-section4">▼</span>
+            </div>
+            <div class="section-content" id="section4">
+                <div class="subsection">
+                    <div class="subsection-title">Are samples available?</div>
+                    <div class="grid-2">
+                        <div class="rule-box" style="border-color: #28a745;">
+                            <div class="rule-question" style="color: #28a745;">✓ YES</div>
+                            <div class="rule-answer">Samples are available upon request.</div>
+                        </div>
+                        <div class="rule-box" style="border-color: #dc3545;">
+                            <div class="rule-question" style="color: #dc3545;">✗ NO</div>
+                            <div class="rule-answer">Do not mention samples</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 5: SIGN-OFF -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section5')">
+                5. SIGN-OFF
+                <span class="toggle-icon" id="icon-section5">▼</span>
+            </div>
+            <div class="section-content" id="section5">
+                <div class="subsection">
+                    <p style="font-style: italic; color: #333; font-size: 14px;">
+                        Let me know if there's anything else I can get you. / Let me know if you have any questions.<br><br>
+                        Thanks!
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 6: THE PITCH -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection('section6')">
+                6. THE PITCH
+                <span class="toggle-icon" id="icon-section6">▼</span>
+            </div>
+            <div class="section-content" id="section6">
+                <div class="subsection">
+                    <div class="subsection-title">Have you been provided with ready-to-go PDP or newsletter verbiage?</div>
+                    <div class="grid-2">
+                        <div class="rule-box" style="border-color: #28a745; background: #e8f5e9;">
+                            <div class="rule-question" style="color: #28a745;">✓ YES</div>
+                            <div class="rule-answer">Copy and paste it, add in links where necessary, and you're done.</div>
+                        </div>
+                        <div class="rule-box" style="border-color: #dc3545; background: #ffebee;">
+                            <div class="rule-question" style="color: #dc3545;">✗ NO</div>
+                            <div class="rule-answer">Choose your scenario below ↓</div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box" style="margin-top: 15px;">
+                        <strong style="color: #856404;">💡 PRO TIP - Extracting PDP Copy:</strong><br><br>
+                        <strong>If the copy is baked into an image:</strong><br>
+                        Use <a href="https://www.imagetotext.info/" target="_blank" style="color: #0066cc; text-decoration: underline;">imagetotext.info</a> to extract the text<br><br>
+                        <strong>OR</strong><br><br>
+                        <strong>To grab clean PDP text from a webpage:</strong><br>
+                        Paste the page's HTML into <a href="https://totheweb.com/learning_center/tools-convert-html-text-to-plain-text-for-content-review/" target="_blank" style="color: #0066cc; text-decoration: underline;">ToTheWeb's HTML to Plain Text converter</a>
+                    </div>
+                </div>
+                
+                <div class="grid-3" style="margin-top: 20px;">
+                    <!-- SCENARIO A -->
+                    <div class="scenario-box">
+                        <div class="scenario-title" style="background: #ADD8E6;">
+                            SCENARIO A<br>Group of Products<br>(Not a Collection)
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 1, A: Gather all PDP copy and look for similarities</div>
+                            <button class="example-btn" onclick="toggleExample('exA1', this)">📄 Example</button>
+                            <div class="example-content" id="exA1">
+                                <div class="example-box">
+                                    <div class="example-text"><strong>LOOK FOR SIMILARITIES (what both have in common):</strong>
+
+<strong>Dunbar:</strong> The Dunbar is a warm outerwear piece, <em>inspired by a vintage American jacket</em>, made from <strong style="background-color: #ffeb3b; color: #000;">100% Recycled Nylon</strong> with a <strong style="background-color: #ffeb3b; color: #000;">DWR treatment</strong> for added weather resistance, and <em>a corduroy trim to the collar</em>.
+
+It has a <em>lofty, diamond-stitch insulation</em> of <strong style="background-color: #ffeb3b; color: #000;">REPREVE® fill</strong>, which is fully recycled and provides <strong style="background-color: #ffeb3b; color: #000;">breathable warmth</strong>.
+
+Features of the jacket include <strong style="background-color: #ffeb3b; color: #000;">Japanese Sun Grip® press-snaps</strong> to the front, <em>ribbed cuffs</em>, and <em>subtle in-seam zippered handwarmer pockets</em>.
+
+<strong>Pathhead:</strong> <em>NEW STYLE - Originally a standard jacket, we've edited the Pathhead Puffer from our archive to create a new insulated vest silhouette.</em> The shell is made from a lightweight <strong style="background-color: #ffeb3b; color: #000;">100% Recycled Nylon</strong>, which has been given a <strong style="background-color: #ffeb3b; color: #000;">DWR treatment</strong> for added weather-resistance, and it has a <em>baffled fill</em> of <strong style="background-color: #ffeb3b; color: #000;">REPREVE® insulation</strong>, which is warm, <strong style="background-color: #ffeb3b; color: #000;">breathable</strong> and fully recycled. It has <strong style="background-color: #ffeb3b; color: #000;">Sun Grip® Japanese press-snaps</strong> to the front, plus <em>patch handwarmer pockets</em> to the front.
+
+<strong>✓ SIMILARITIES (highlighted in yellow):</strong> Both use 100% Recycled Nylon, DWR treatment, REPREVE® fill, breathable warmth, Sun Grip® press-snaps</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 1, B: Combine the similarities into a cohesive sentence</div>
+                            <button class="example-btn" onclick="toggleExample('exA2', this)">📄 Example</button>
+                            <div class="example-content" id="exA2">
+                                <div class="example-box">
+                                    <div class="example-text">Cut from 100% Recycled Nylon with a DWR treatment for added weather resistance, and insulated with REPREVE® fill, a fully recycled down alternative that's breathable and warm, the <a href="https://www.kestin.co/products/dunbar-padded-jacket-in-dark-navy-recycled-nylon" target="_blank">Dunbar Padded Jacket</a> and <a href="https://www.kestin.co/products/pathhead-puffer-vest-in-dark-olive-recycled-nylon" target="_blank">Pathhead Puffer Vest</a> are big on warmth and light on the planet.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 2, A: Look for unique details (opposite of similarities)</div>
+                            <button class="example-btn" onclick="toggleExample('exA3', this)">📄 Example</button>
+                            <div class="example-content" id="exA3">
+                                <div class="example-box">
+                                    <div class="example-text"><strong>LOOK FOR UNIQUE DETAILS (what makes each different):</strong>
+
+The Dunbar is a warm outerwear piece, <em style="background-color: #ffcdd2; color: #000;">inspired by a vintage American jacket</em>, made from 100% Recycled Nylon with a DWR treatment for added weather resistance, and <em style="background-color: #ffcdd2; color: #000;">a corduroy trim to the collar</em>.
+
+It has a <em style="background-color: #ffcdd2; color: #000;">lofty, diamond-stitch insulation</em> of REPREVE® fill, which is fully recycled and provides breathable warmth.
+
+Features of the jacket include Japanese Sun Grip® press-snaps to the front, <em style="background-color: #ffcdd2; color: #000;">ribbed cuffs</em>, and <em style="background-color: #ffcdd2; color: #000;">subtle in-seam zippered handwarmer pockets</em>.
+
+<em style="background-color: #c8e6c9; color: #000;">NEW STYLE - Originally a standard jacket, we've edited the Pathhead Puffer from our archive to create a new insulated vest silhouette.</em> The shell is made from a lightweight 100% Recycled Nylon, which has been given a DWR treatment for added weather-resistance, and it has a <em style="background-color: #c8e6c9; color: #000;">baffled fill</em> of REPREVE® insulation, which is warm, breathable and fully recycled. It has Sun Grip® Japanese press-snaps to the front, plus <em style="background-color: #c8e6c9; color: #000;">patch handwarmer pockets</em> to the front.
+
+<strong>✓ DUNBAR UNIQUE (highlighted in red):</strong> Vintage-inspired, diamond-stitch, corduroy collar, ribbed cuffs, zippered pockets
+<strong>✓ PATHHEAD UNIQUE (highlighted in green):</strong> NEW vest silhouette from archive, baffled fill, patch pockets</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 2, B: Use the details/differences to tell a mini story about each product</div>
+                            <button class="example-btn" onclick="toggleExample('exA4', this)">📄 Example</button>
+                            <div class="example-content" id="exA4">
+                                <div class="example-box">
+                                    <div class="example-text">Inspired by vintage outerwear, the <a href="https://www.kestin.co/products/dunbar-padded-jacket-in-dark-navy-recycled-nylon" target="_blank">Dunbar</a> has a lofty, diamond stitch and corduroy trimmed collar, while the <a href="https://www.kestin.co/products/pathhead-puffer-vest-in-dark-olive-recycled-nylon" target="_blank">Pathhead</a> has a baffle fill and patch handwarmer pockets.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 3: Wrap up - reunite them with a final similarity</div>
+                            <button class="example-btn" onclick="toggleExample('exA5', this)">📄 Example</button>
+                            <div class="example-content" id="exA5">
+                                <div class="example-box">
+                                    <div class="example-text">Each is finished with Sun Grip® Japanese press-snaps on the front closure.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SCENARIO B -->
+                    <div class="scenario-box">
+                        <div class="scenario-title" style="background: #FFB6C1;">
+                            SCENARIO B<br>Collection with<br>Bad/Short Verbiage
+                        </div>
+                        
+                        <div class="note-box">
+                            <strong>💡 NOTE:</strong> Most of the time, a collection is a collection because it's made from the same fabric / material. So, typically, that should be the focus of your blurb.
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 1: Gather all PDP verbiage together</div>
+                            <button class="example-btn" onclick="toggleExample('exB1', this)">📄 Example</button>
+                            <div class="example-content" id="exB1">
+                                <div class="example-box">
+                                    <div class="example-text"><strong>GATHER ALL PDP VERBIAGE - Look for what ALL pieces share:</strong>
+
+<strong>Half-Zip:</strong> <strong style="background-color: #ffeb3b; color: #000;">Soft and smooth with a comfortable amount of stretch</strong>, this <strong style="background-color: #ffeb3b; color: #000;">thermoregulating</strong> half-zip is <strong style="background-color: #ffeb3b; color: #000;">made for layering up, lounging around, and looking good</strong>. <strong style="background-color: #ffeb3b; color: #000;">Ethically sourced merino wool</strong>, <strong style="background-color: #ffeb3b; color: #000;">Quick stretch recovery</strong>, <strong style="background-color: #ffeb3b; color: #000;">Naturally moisture-wicking</strong>, <em>Rib detailing</em>. Material: <strong style="background-color: #ffeb3b; color: #000;">42% LENZING™️ EcoVero™️/ 42% RWS Merino Wool / 14% Nylon / 2% Spandex</strong>. <strong style="background-color: #ffeb3b; color: #000;">Machine wash cold</strong>, gentle cycle. <strong style="background-color: #ffeb3b; color: #000;">Tumble dry low</strong>.
+
+<strong>Full-Zip:</strong> <strong style="background-color: #ffeb3b; color: #000;">Soft and smooth with a comfortable amount of stretch</strong>, this <strong style="background-color: #ffeb3b; color: #000;">thermoregulating</strong> full-zip is <strong style="background-color: #ffeb3b; color: #000;">made for layering up, lounging around, and looking good</strong>. <strong style="background-color: #ffeb3b; color: #000;">Ethically sourced merino wool</strong>, <strong style="background-color: #ffeb3b; color: #000;">Quick stretch recovery</strong>, <em>Side pockets</em>, <strong style="background-color: #ffeb3b; color: #000;">Naturally moisture-wicking</strong>. Material: <strong style="background-color: #ffeb3b; color: #000;">42% Merino Wool / 42% LENZING EcoVero / 14% Nylon / 2% Spandex</strong>. <strong style="background-color: #ffeb3b; color: #000;">Machine wash cold</strong> with like colors. <strong style="background-color: #ffeb3b; color: #000;">Tumble dry low</strong>.
+
+<strong>Polo:</strong> As soft as it is sharp, our take on the classic sweater polo is engineered with <strong style="background-color: #ffeb3b; color: #000;">thermoregulating merino wool</strong> and stretch that doesn't sag. <strong style="background-color: #ffeb3b; color: #000;">Ethically sourced merino wool</strong>, <strong style="background-color: #ffeb3b; color: #000;">Naturally moisture-wicking</strong>, <em>Reinforced forearm ribbing</em>, <em>Classic saddle shoulder</em>. Material: <strong style="background-color: #ffeb3b; color: #000;">42% Merino Wool / 42% LENZING EcoVero Viscose / 14% Nylon / 2% Spandex</strong>. <strong style="background-color: #ffeb3b; color: #000;">Machine wash cold</strong> with like colors. <strong style="background-color: #ffeb3b; color: #000;">Tumble dry low</strong>.
+
+<strong>V-Neck:</strong> <strong style="background-color: #ffeb3b; color: #000;">Soft and smooth with a comfortable amount of stretch</strong>, this <strong style="background-color: #ffeb3b; color: #000;">thermoregulating</strong> v-neck is <strong style="background-color: #ffeb3b; color: #000;">made for layering up, lounging around, and looking good</strong>. <strong style="background-color: #ffeb3b; color: #000;">Ethically sourced merino wool</strong>, <strong style="background-color: #ffeb3b; color: #000;">Quick stretch recovery</strong>, <strong style="background-color: #ffeb3b; color: #000;">Naturally moisture-wicking</strong>, <em>Rib detailing</em>. Material: <strong style="background-color: #ffeb3b; color: #000;">42% LENZING™️ EcoVero™️/ 42% RWS Merino Wool / 14% Nylon / 2% Spandex</strong>. <strong style="background-color: #ffeb3b; color: #000;">Machine wash cold</strong>, gentle cycle. <strong style="background-color: #ffeb3b; color: #000;">Tumble dry low</strong>.
+
+<strong>Crew:</strong> <strong style="background-color: #ffeb3b; color: #000;">Soft and smooth with a comfortable amount of stretch</strong>, this <strong style="background-color: #ffeb3b; color: #000;">thermoregulating</strong> crew neck is <strong style="background-color: #ffeb3b; color: #000;">made for layering up, lounging around, and looking good</strong>. <strong style="background-color: #ffeb3b; color: #000;">Ethically sourced merino wool</strong>, <strong style="background-color: #ffeb3b; color: #000;">Quick stretch recovery</strong>, <strong style="background-color: #ffeb3b; color: #000;">Naturally moisture-wicking</strong>, <em>Rib detailing</em>. Material: <strong style="background-color: #ffeb3b; color: #000;">42% LENZING™️ EcoVero™️/ 42% RWS Merino Wool / 14% Nylon / 2% Spandex</strong>. <strong style="background-color: #ffeb3b; color: #000;">Machine wash cold</strong>, gentle cycle. <strong style="background-color: #ffeb3b; color: #000;">Tumble dry low</strong>.
+
+<strong>✓ COMMON FEATURES (highlighted in yellow):</strong> All share the same fabric composition, care instructions, thermoregulating properties, merino wool, moisture-wicking, stretch recovery</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 2: Pull standout fabric details</div>
+                            <button class="example-btn" onclick="toggleExample('exB2', this)">📄 Example</button>
+                            <div class="example-content" id="exB2">
+                                <div class="example-box">
+                                    <div class="example-text">From the PDP verbiage, pull the standout details about the fabric. By standout details, I mean the things that are unique, that editors might care about, that you as a customer are interested in, etc. To me, the standout details are:
+
+• Ethically sourced merino wool
+• Quick stretch recovery
+• Naturally moisture-wicking
+• 42% Merino Wool / 42% LENZING EcoVero* / 14% Nylon / 2% Spandex
+• Machine wash cold with like colors
+
+* I don't immediately know what this is, so I googled it and found out it's made from wood pulp, which is cool.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 3: Use the details + overview to draft your blurb</div>
+                            <button class="example-btn" onclick="toggleExample('exB3', this)">📄 Example</button>
+                            <div class="example-content" id="exB3">
+                                <div class="example-box">
+                                    <div class="example-text">The <a href="https://mackweldon.com/search?q=tech%20merino" target="_blank">Tech Merino Collection</a> includes a crewneck sweater, v-neck sweater, half-zip, full-zip and more, all crafted from <a href="https://mackweldon.com/" target="_blank">Mack Weldon's</a> proprietary Tech Merino fabric, a sustainable blend of Responsible Wool Standard certified merino wool and LENZING EcoVero, a highly breathable and exceptionally soft viscose fibre that's woven from wood pulp sourced from certified and controlled forests. Soft enough for against-the-skin wear, Tech Merino is also moisture-wicking, odor-killing, and quick to recover, so you never have to worry about it stretching out. And, it's machine washable, too.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SCENARIO C -->
+                    <div class="scenario-box">
+                        <div class="scenario-title" style="background: #FFA500;">
+                            SCENARIO C<br>Single Product with<br>Bad Verbiage
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Example: Eli Vest (BEFORE - Bad Verbiage)</div>
+                            <button class="example-btn" onclick="toggleExample('exC0', this)">📄 Show</button>
+                            <div class="example-content" id="exC0">
+                                <div class="example-box">
+                                    <div class="example-text" style="color: #dc3545;">Eli Vest: Elevated sportswear for your every day. Featuring a diamond-quilted front and back with Zegna Baruffa Merino wool lining and side panels, this versatile layer is warm, comfortable, and undeniably classic.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 1: Hunt for MORE info</div>
+                            <div class="step-description">Scroll entire page, check newsletters, check social posts</div>
+                            
+                            <div class="note-box" style="margin-top: 8px;">
+                                <strong>💡 PRO TIP:</strong> Copy and paste the ENTIRE page (hit control a, then control c) - paste it into an email draft, select all, and remove the formatting - now you have all the text from the page. Delete what isn't relevant.
+                            </div>
+                            
+                            <button class="example-btn" onclick="toggleExample('exC1', this)">📄 Show Rest of Eli PDP Copy</button>
+                            <div class="example-content" id="exC1">
+                                <div class="example-box">
+                                    <div class="example-text"><strong>Here is the rest of the copy from the Eli PDP (HUNT for useful details):</strong>
+
+<strong style="background-color: #e1bee7; color: #000;">Fabric: 100% Polyester shell, 100% duck down fill</strong>
+<strong style="background-color: #e1bee7; color: #000;">Diamond-quilted Ciré shell</strong>
+<strong style="background-color: #e1bee7; color: #000;">Zegna Baruffa Merino, full Milano side panels</strong>
+<strong style="background-color: #e1bee7; color: #000;">Baruffa Merino jersey lining at front and back panels</strong>
+<em>Full-zip, dual-direction, center-front zipper</em>
+<em>Zippered Napoleon chest pocket at front zipper, on-seam side pockets</em>
+Care Instructions: Machine wash cold, gentle cycle, reshape, and dry flat. Do not bleach.
+
+<strong style="background-color: #fff9c4; color: #000;">Premium Materials - Best-of-the-best Baruffa Merino wool meets elevated Ciré quilting. The result is a luxuriously warm, surprisingly lightweight layer.</strong>
+
+<strong style="background-color: #fff9c4; color: #000;">Everyday Luxury - A classic style that's equally at home on the course, in the clubhouse, or at the office.</strong>
+
+<strong style="background-color: #fff9c4; color: #000;">Sophisticated Design - Timeless and tailored, the Eli is designed to elevate your wardrobe while being comfortable enough to wear every day.</strong>
+
+<strong style="background-color: #fff9c4; color: #000;">Thoughtful Details - Elevated in every way—from the polished diamond-quilting, to the Merino wool lining, down to the engraved metal zipper pull.</strong>
+
+<strong>✓ KEY DETAILS FOUND (purple = fabric specs, yellow = selling points):</strong>
+Use these to write compelling copy that tells the full story!</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-title">Step 2: Compose an Intriguing, Informative Blurb</div>
+                            <button class="example-btn" onclick="toggleExample('exC2', this)">📄 Show AFTER</button>
+                            <div class="example-content" id="exC2">
+                                <div class="example-box">
+                                    <div class="example-text" style="color: #28a745;">An elevated take on an autumn essential, the <a href="https://bdraddy.com/products/bdo11" target="_blank" style="color: #1565c0;">Eli Vest</a> combines lightweight diamond-quilted down with buttery Zegna Baruffa Merino wool for warmth that won't weigh you down. Engineered for the golf course yet refined enough for the office, its Merino side panels and tailored fit allow it to move with you, while the classic design makes it at home anywhere and on everyone. Timeless, versatile, and impeccably crafted—this is outerwear, elevated.</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="rule-box" style="background: #ffebee; border-color: #dc3545; margin-top: 10px;">
+                            <div class="rule-question" style="color: #dc3545;">⚠️ NO additional verbiage found?</div>
+                            <div class="rule-answer">If there is no additional verbiage to pull from the PDP, newsletter, or socials… chat Brad.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let allSectionsExpanded = false;
+        
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById('icon-' + sectionId);
+            
+            if (section.classList.contains('show')) {
+                section.classList.remove('show');
+                icon.classList.remove('rotated');
+            } else {
+                section.classList.add('show');
+                icon.classList.add('rotated');
+            }
+        }
+        
+        function toggleExample(exampleId, button) {
+            const example = document.getElementById(exampleId);
+            
+            if (example.classList.contains('show')) {
+                example.classList.remove('show');
+                button.textContent = button.textContent.replace('Hide', 'Show').replace('🗙', '📄');
+                button.classList.remove('active');
+            } else {
+                example.classList.add('show');
+                button.textContent = button.textContent.replace('Show', 'Hide').replace('📄', '🗙');
+                button.classList.add('active');
+            }
+        }
+        
+        function expandAllSections() {
+            const sections = document.querySelectorAll('.section-content');
+            const icons = document.querySelectorAll('.toggle-icon');
+            const btn = document.querySelector('.expand-all-btn');
+            
+            if (!allSectionsExpanded) {
+                sections.forEach(section => section.classList.add('show'));
+                icons.forEach(icon => icon.classList.add('rotated'));
+                btn.textContent = 'Collapse All Sections';
+                allSectionsExpanded = true;
+            } else {
+                sections.forEach(section => section.classList.remove('show'));
+                icons.forEach(icon => icon.classList.remove('rotated'));
+                btn.textContent = 'Expand All Sections';
+                allSectionsExpanded = false;
+            }
+        }
+    </script>
+</body>
+</html>

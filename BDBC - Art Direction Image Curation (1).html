@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDBC - Art Direction - Email Image Curation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: #000080;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            color: #fff;
+            margin: 0;
+            font-family: 'Archivo Black', sans-serif;
+        }
+        
+        .header .subtitle {
+            font-size: 16px;
+            color: #fff;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+        
+        .decision-box {
+            background: #000080;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .path-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .path-box {
+            border: 3px solid #000080;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .path-header {
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+        
+        .path-header:hover {
+            opacity: 0.9;
+        }
+        
+        .path-yes {
+            background: #28a745;
+            color: white;
+        }
+        
+        .path-no {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .path-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+        
+        .path-content.show {
+            max-height: 2000px;
+            padding: 20px;
+        }
+        
+        .step-section {
+            margin-bottom: 20px;
+            border: 3px solid #000080;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .step-header {
+            background: #000080;
+            color: white;
+            padding: 15px 20px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Archivo Black', sans-serif;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        
+        .step-header:hover {
+            background: #0000a0;
+        }
+        
+        .step-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+        
+        .step-content.show {
+            max-height: 5000px;
+            padding: 20px;
+        }
+        
+        .instruction-box {
+            background: #f8f9fa;
+            border-left: 4px solid #000080;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .instruction-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .bullet-list {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .bullet-item {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .process-list {
+            background: #e8f5e9;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        
+        .process-list-title {
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .process-item {
+            font-size: 13px;
+            color: #1b5e20;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .process-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .critical-box {
+            background: #fff3cd;
+            border: 3px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .critical-title {
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .critical-text {
+            font-size: 13px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        .requirements-box {
+            background: #000080;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .requirements-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .requirement-item {
+            font-size: 16px;
+            margin: 8px 0;
+        }
+        
+        .toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .path-toggle-icon {
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .path-toggle-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .expand-all-btn {
+            background: #000080;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .expand-all-btn:hover {
+            background: #0000a0;
+        }
+        
+        .arrow-down {
+            text-align: center;
+            font-size: 32px;
+            color: #000080;
+            margin: 20px 0;
+        }
+        
+        .note-box {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .note-title {
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .note-text {
+            font-size: 13px;
+            color: #1565c0;
+            line-height: 1.6;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .expand-all-btn {
+                display: none;
+            }
+            
+            .step-content {
+                max-height: none !important;
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 1000px) {
+            .path-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 BDBC - Art Direction - Email Image Curation</h1>
+            <div class="subtitle">Complete workflow for selecting, editing, and organizing pitch images | Click sections to expand/collapse</div>
+        </div>
+        
+        <button class="expand-all-btn" onclick="expandAllSteps()">Expand All Steps</button>
+        
+        <!-- INITIAL DECISION -->
+        <div class="decision-box">
+            DID THE CLIENT PROVIDE IMAGERY?
+        </div>
+        
+        <!-- TWO PATHS -->
+        <div class="path-container">
+            <!-- YES PATH -->
+            <div class="path-box">
+                <div class="path-header path-yes" onclick="togglePath('path-yes')">
+                    <span>✓ YES - Client Provided Imagery</span>
+                    <span class="path-toggle-icon" id="icon-path-yes">▼</span>
+                </div>
+                <div class="path-content" id="path-yes">
+                    <div class="instruction-box">
+                        <div class="instruction-text">
+                            <strong>Download/open all images</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="arrow-down">↓</div>
+                    
+                    <div class="instruction-box">
+                        <div class="instruction-text">
+                            <strong>Review which images are already in Landscape</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="arrow-down">↓</div>
+                    
+                    <div class="instruction-box">
+                        <div class="instruction-text">
+                            <strong>Identify which images could be combined to create a landscape</strong><br>
+                            (2 portrait images can be combined)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NO PATH -->
+            <div class="path-box">
+                <div class="path-header path-no" onclick="togglePath('path-no')">
+                    <span>✗ NO - Load from Brand's Website</span>
+                    <span class="path-toggle-icon" id="icon-path-no">▼</span>
+                </div>
+                <div class="path-content" id="path-no">
+                    <div class="instruction-box">
+                        <div class="instruction-text">
+                            <strong>R-click, open each image in a new tab</strong><br>
+                            Then R-click Save
+                        </div>
+                    </div>
+                    
+                    <div class="critical-box">
+                        <div class="critical-title">💡 WHY THIS METHOD?</div>
+                        <div class="critical-text">
+                            This allows you to get the image in High-Resolution
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONVERGENCE POINT -->
+        <div class="arrow-down">↓</div>
+        
+        <!-- WHAT TO SELECT -->
+        <div class="process-list" style="max-width: 1000px; margin: 20px auto;">
+            <div class="process-list-title">YOU WILL NEED TO SELECT:</div>
+            <div class="process-item">A Flat lay of product - For Dropbox Folder to share with writers (don't include in the body of the pitch)</div>
+            <div class="process-item">Full Product on Model - For email and Dropbox Folder to share with writers</div>
+            <div class="process-item">Close up image of product - For email and Dropbox Folder to share with writers</div>
+            <div class="process-item">Repeat the above for each colorway - For email and Dropbox Folder to share with writers</div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- IMAGE REQUIREMENTS -->
+        <div class="requirements-box">
+            <div class="requirements-title">EVERY IMAGE SHOULD BE:</div>
+            <div class="requirement-item">📏 700px WIDE</div>
+            <div class="requirement-item">📐 467px HIGH</div>
+            <div class="requirement-item">🖼️ 72 DPI</div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- CANVA PROCESS -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('canva-setup')">
+                STEP 1: Open Canva & Upload Images
+                <span class="toggle-icon" id="icon-canva-setup">▼</span>
+            </div>
+            <div class="step-content" id="canva-setup">
+                <div class="instruction-box">
+                    <div class="instruction-text">
+                        <strong>Upload the images you just saved/downloaded</strong>
+                    </div>
+                </div>
+                
+                <div class="instruction-box">
+                    <div class="instruction-text">
+                        <strong>In Canva a 700px x 467px template can be used every time</strong>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">💡 TEMPLATE TIP:</div>
+                    <div class="note-text">
+                        Create this template once and save it - you'll use it for every pitch!
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- SINGLE VS TWO IMAGES -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('image-layout')">
+                STEP 2: Using 2 Images in Landscape? Follow These Steps
+                <span class="toggle-icon" id="icon-image-layout">▼</span>
+            </div>
+            <div class="step-content" id="image-layout">
+                <div class="critical-box">
+                    <div class="critical-title">⚠️ ONLY IF USING 2 IMAGES:</div>
+                    <div class="critical-text">
+                        If you're only using 1 image, skip to Step 3
+                    </div>
+                </div>
+                
+                <div class="process-list">
+                    <div class="process-list-title">RESIZING TWO IMAGES:</div>
+                    <div class="process-item">Add both images to the template</div>
+                    <div class="process-item">Click on one of the images</div>
+                    <div class="process-item">In the Top Right Corner you'll see 3 horizontal dots, Click that</div>
+                    <div class="process-item">Then select <strong>Position</strong></div>
+                    <div class="process-item">A panel will appear on the left side</div>
+                    <div class="process-item">Scroll to where it shows the width px and height px</div>
+                </div>
+                
+                <div class="instruction-box" style="background: #e8f5e9; border-color: #28a745;">
+                    <div class="instruction-text" style="color: #1b5e20;">
+                        <strong>If you're using 2 photos we want each photo to be half the width:</strong><br><br>
+                        • Make both images <strong>350px wide</strong> (half of 700px which is what our template is)<br>
+                        • Then make each image <strong>467px height</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- BACKGROUND MATCHING -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('background-matching')">
+                STEP 3: Make Background Cohesive (For 2-Image Layouts)
+                <span class="toggle-icon" id="icon-background-matching">▼</span>
+            </div>
+            <div class="step-content" id="background-matching">
+                <div class="instruction-box">
+                    <div class="instruction-text">
+                        <strong>The background image should be cohesive</strong>
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">YOU HAVE A COUPLE OPTIONS:</div>
+                    <div class="note-text">
+                        <strong>Option 1:</strong> Use rectangle background matching method (detailed below)<br>
+                        <strong>Option 2:</strong> Remove background from both images and select neutral color
+                    </div>
+                </div>
+                
+                <div class="process-list">
+                    <div class="process-list-title">OPTION 1: RECTANGLE BACKGROUND MATCHING METHOD</div>
+                    <div class="process-item">Add a rectangle shape to the template</div>
+                    <div class="process-item">A circle with a filled color will appear at the top</div>
+                    <div class="process-item">Click that circle</div>
+                    <div class="process-item">On the left panel select the rainbow circle with the plus sign in the middle of it</div>
+                    <div class="process-item">Select the <strong>Eye Dropper Tool</strong></div>
+                    <div class="process-item">Using the Eye Dropper select the background of the photo that still has its background</div>
+                    <div class="process-item">Resize the rectangle to take up half of the space</div>
+                    <div class="process-item">Click the three horizontal dots on the top right</div>
+                    <div class="process-item">Select <strong>Position</strong></div>
+                    <div class="process-item">Select <strong>Back</strong></div>
+                </div>
+                
+                <div class="process-list" style="margin-top: 20px;">
+                    <div class="process-list-title">OPTION 2: NEUTRAL BACKGROUND</div>
+                    <div class="process-item">Remove the background from both images</div>
+                    <div class="process-item">Click anywhere on the background</div>
+                    <div class="process-item">Then click on the rainbow-filled circle in the top toolbar</div>
+                    <div class="process-item">Select a previously used background color</div>
+                </div>
+                
+                <div class="critical-box">
+                    <div class="critical-title">✨ WHAT THIS DOES:</div>
+                    <div class="critical-text">
+                        This will move the rectangle to the back of the images creating a background color that matches the other photo on your template
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- DOWNLOAD & RENAME -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('download-rename')">
+                STEP 4: Download & Rename Images
+                <span class="toggle-icon" id="icon-download-rename">▼</span>
+            </div>
+            <div class="step-content" id="download-rename">
+                <div class="process-list">
+                    <div class="process-list-title">DOWNLOAD FROM CANVA:</div>
+                    <div class="process-item">Navigate to <strong>Share</strong> in the top right corner</div>
+                    <div class="process-item">Select <strong>Download</strong></div>
+                    <div class="process-item">Always Select <strong>JPEG format</strong></div>
+                </div>
+                
+                <div class="instruction-box" style="background: #fff3cd; border-color: #ffc107;">
+                    <div class="instruction-text" style="color: #856404;">
+                        <strong>RENAME THE IMAGES:</strong><br><br>
+                        • Brand_Product Name_Email1_<br>
+                        • Brand_Product Name_Email2_<br><br>
+                        Use numbers for each photo so you know where each photo should be inserted into the email.
+                    </div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">EXAMPLE:</div>
+                    <div class="note-text">
+                        <strong>Brand_Product Name_Email1_</strong> goes first<br>
+                        <strong>Brand_Product Name_Email2_</strong> is the second image to be pasted, etc.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- DROPBOX SETUP -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('dropbox-setup')">
+                STEP 5: Create Dropbox Folder for Writers
+                <span class="toggle-icon" id="icon-dropbox-setup">▼</span>
+            </div>
+            <div class="step-content" id="dropbox-setup">
+                <div class="instruction-box">
+                    <div class="instruction-text">
+                        <strong>Open Dropbox</strong>
+                    </div>
+                </div>
+                
+                <div class="process-list">
+                    <div class="process-list-title">CREATE NEW FOLDER:</div>
+                    <div class="process-item"><strong>BRAND NAME (all caps)</strong></div>
+                    <div class="process-item">Subject of Pitch</div>
+                </div>
+                
+                <div class="critical-box">
+                    <div class="critical-title">⚠️ BEFORE YOU ADD IMAGES TO THIS FOLDER:</div>
+                    <div class="critical-text">
+                        <strong>IMAGES MUST BE CLEARLY LABELED</strong><br><br>
+                        This way writers are able to decipher quickly what the product is and what brand it is<br><br>
+                        Each image should have the brand name in all CAPS at the beginning of each file name<br><br>
+                        <strong>Ex.</strong> BUCK MASON Rugby Jersey
+                    </div>
+                </div>
+                
+                <div class="note-box" style="background: #ffebee; border-color: #dc3545;">
+                    <div class="note-title" style="color: #c62828;">🚫 DON'T INCLUDE:</div>
+                    <div class="note-text" style="color: #c62828;">
+                        Don't select the images you created in Canva for the Dropbox - Those are just for the EMAIL PITCH
+                    </div>
+                </div>
+                
+                <div class="instruction-box" style="background: #e8f5e9; border-color: #28a745;">
+                    <div class="instruction-text" style="color: #1b5e20;">
+                        <strong>YOU WILL SELECT THE INDIVIDUAL IMAGES TO ADD TO THE DROPBOX:</strong><br><br>
+                        • A Flat lay of product<br>
+                        • Full Product on Model<br>
+                        • Close up image of product<br>
+                        • Follow for each colorway of each product
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- SHARE FOLDER -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('share-folder')">
+                STEP 6: Share Dropbox Folder (View Only)
+                <span class="toggle-icon" id="icon-share-folder">▼</span>
+            </div>
+            <div class="step-content" id="share-folder">
+                <div class="process-list">
+                    <div class="process-list-title">SHARING PROCESS:</div>
+                    <div class="process-item">Select <strong>Share Folder</strong></div>
+                    <div class="process-item">Select the <strong>Gear Icon</strong></div>
+                    <div class="process-item">Select for <strong>VIEWING only</strong></div>
+                </div>
+                
+                <div class="critical-box">
+                    <div class="critical-title">🔒 IMPORTANT:</div>
+                    <div class="critical-text">
+                        Always set to VIEWING only so writers cannot edit or delete images
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="arrow-down">↓</div>
+        
+        <!-- INSERT INTO PITCH -->
+        <div class="step-section">
+            <div class="step-header" onclick="toggleStep('insert-pitch')">
+                STEP 7: Inserting Images into the Pitch
+                <span class="toggle-icon" id="icon-insert-pitch">▼</span>
+            </div>
+            <div class="step-content" id="insert-pitch">
+                <div class="instruction-box" style="background: #e8f5e9; border-color: #28a745;">
+                    <div class="instruction-text" style="color: #1b5e20;">
+                        <strong>Use the Canva images you created</strong>
+                    </div>
+                </div>
+                
+                <div class="process-list">
+                    <div class="process-list-title">IMAGE PLACEMENT:</div>
+                    <div class="process-item"><strong>The first image is the "hero image"</strong> - This image is inserted right after your signature</div>
+                    <div class="process-item"><strong>The rest of the images</strong> should be inserted at the end of the pitch after the rest of the text</div>
+                </div>
+                
+                <div class="note-box">
+                    <div class="note-title">💡 REMEMBER:</div>
+                    <div class="note-text">
+                        The numbered images (Email1, Email2, etc.) guide you on the order of insertion
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #28a745; color: white; border-radius: 8px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">✅ Process Complete!</div>
+            <div style="font-size: 14px; opacity: 0.9;">Your images are properly formatted, organized in Dropbox, and ready to insert into your pitch</div>
+        </div>
+    </div>
+    
+    <script>
+        let allStepsExpanded = false;
+        
+        function togglePath(pathId) {
+            const path = document.getElementById(pathId);
+            const icon = document.getElementById('icon-' + pathId);
+            
+            if (path.classList.contains('show')) {
+                path.classList.remove('show');
+                icon.classList.remove('rotated');
+            } else {
+                path.classList.add('show');
+                icon.classList.add('rotated');
+            }
+        }
+        
+        function toggleStep(stepId) {
+            const step = document.getElementById(stepId);
+            const icon = document.getElementById('icon-' + stepId);
+            
+            if (step.classList.contains('show')) {
+                step.classList.remove('show');
+                icon.classList.remove('rotated');
+            } else {
+                step.classList.add('show');
+                icon.classList.add('rotated');
+            }
+        }
+        
+        function expandAllSteps() {
+            const steps = document.querySelectorAll('.step-content');
+            const icons = document.querySelectorAll('.toggle-icon');
+            const btn = document.querySelector('.expand-all-btn');
+            
+            if (!allStepsExpanded) {
+                steps.forEach(step => step.classList.add('show'));
+                icons.forEach(icon => icon.classList.add('rotated'));
+                btn.textContent = 'Collapse All Steps';
+                allStepsExpanded = true;
+            } else {
+                steps.forEach(step => step.classList.remove('show'));
+                icons.forEach(icon => icon.classList.remove('rotated'));
+                btn.textContent = 'Expand All Steps';
+                allStepsExpanded = false;
+            }
+        }
+    </script>
+</body>
+</html>
